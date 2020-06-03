@@ -52,21 +52,12 @@ def write_order(username, password):
     df['date'] = start + dt.timedelta(12)
     df["Entry Date"] = start
 
-    # df[df['User'].str.match(username)]
-    df[df['User'].str.contains('joy')]
+    result = df[df['User'] == "joy"]
+    print(result)
     print ("file has been updated for: " , username)
 
-    print (df)
     sleep (4)
     df.to_excel(output)
-    # Rwplace data - Orders table / Append can be used
-    #df.to_sql('orders', engine, if_exists = 'append', index = False)
-
-  #  results = engine.execute ('Select * from orders where username = Order.User')
-
-    #Write results to output excel
-    #final = pd.DataFrame(results, columns = df.columns)
-    #final.to_excel(output, index = False )
 
 if x == 1:
     login = False
@@ -76,14 +67,16 @@ if x == 1:
         csv_reader = csv.reader(csvfile)
 
         for row in csv_reader:
+
             if line_count == 0:
                 line_count += int(line_count+1)
             else:
-                print (row[3],username, row[4], password)
-                if row[3] == username and row[4] == password:
+
+                if row[4] == username and row[5] == password:
 
                    login = True
                 else:
+
                     if row[3] != username or row[4] != password:
                         reset = True
 
@@ -116,7 +109,7 @@ elif x == 2:
       print('Password')
       password = input()
 
-header = ("Row Number""Name", "email", "Address", "User Name", "Password", "User Type","Date and Time")
+header = ("Row Number","Name", "email", "Address", "User Name", "Password", "User Type","Date and Time")
 data = (line_count, name, email, address, username, password, "User", now)
 
 def writer(header, data, filename):
